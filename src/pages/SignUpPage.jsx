@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom"
-import styled from "styled-components"
-import MyWalletLogo from "../components/MyWalletLogo"
-/* import LoadingSpin from 'react-loader-spinner'; */
+import styled from "styled-components";
+import logo from "../Assets/logo.png";
 import { useState } from "react";
 import axios from "axios";
+import {MutatingDots} from 'react-loader-spinner'
 
 export default function SignUpPage() {
 
@@ -13,8 +13,10 @@ export default function SignUpPage() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [confirm, setConfirm] = useState('');
-  const [loading, setLoading] = useState(false);
-  console.log(nome)
+  const [born, setBorn] = useState(''); // New state for birthdate
+  const [address, setAddress] = useState(''); // New state for address
+  const [phoneNumber, setPhoneNumber] = useState(''); // New state for phone number
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
 
   function refreshOnError() {
@@ -24,25 +26,28 @@ export default function SignUpPage() {
   function registerUser(e) {
 
     e.preventDefault();
-    
-    if(senha !== confirm){
+
+    if (senha !== confirm) {
       alert("Digite a mesma senha")
       return
     }
 
     setLoading(true);
-    const promise = axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, {
+    const promise = axios.post(`${import.meta.env.VITE_API_URL}/signup`, {
+      name: nome,
       email: email,
-      nome: nome,
-      senha: senha,
-      confirm: confirm
+      password: senha,
+      confirmPassword: confirm,
+      born: born, // Use the born state
+      address: address, // Use the address state
+      phoneNumber: phoneNumber // Use the phoneNumber state
     });
 
     promise.then(response => {
       setLoading(false);
       const { data } = response;
       console.log(data);
-      navigate('/');
+      navigate('/login');
     })
 
     promise.catch(err => {
@@ -57,22 +62,35 @@ export default function SignUpPage() {
   return (
     <SingUpContainer>
       <form onSubmit={registerUser} >
-        <MyWalletLogo />
-        <input data-test="name" type={'text'} placeholder={'Nome'} value={nome} onChange={(e) => setNome(e.target.value)} />
-        <input data-test="email" type={'email'} placeholder={'E-mail'} value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input data-test="password" type={'password'} placeholder={'Senha'} value={senha} onChange={(e) => setSenha(e.target.value)} />
-        <input data-test="conf-password" type={'password'} placeholder={'Confirme a senha'} value={confirm} onChange={(e) => setConfirm(e.target.value)} />
+        <StyledImg src={logo} alt="img-logo" />
+        <input type="text" placeholder="Nome" value={nome} onChange={(e) => setNome(e.target.value)} />
+        <input type="email" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
+        <input type="password" placeholder="Confirme a senha" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
+        <input type="date" placeholder="Data de Nascimento" value={born} onChange={(e) => setBorn(e.target.value)} />
+        <input type="text" placeholder="Endereço" value={address} onChange={(e) => setAddress(e.target.value)} />
+        <input type="tel" placeholder="Número de Telefone" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
         <button data-test="sign-up-submit" >
-          {loading ? (<div>Caregando...</div>) : (
+          {loading ? (<MutatingDots
+            height="100"
+            width="100"
+            color="#6a6a6a"
+            secondaryColor='#cacaca'
+            radius='12.5'
+            ariaLabel="mutating-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />) : (
             'CADASTRAR'
           )
           }
         </button>
       </form>
 
-      <Link to='/'>
+      <StyledLink to='/signup'>
         Já tem uma conta? Entre agora!
-      </Link>
+      </StyledLink>
     </SingUpContainer>
   )
 }
@@ -83,4 +101,29 @@ const SingUpContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  input{
+    height: 10px;
+  }
+  input:hover {
+      opacity: 0.7;
+      
+  }
+  button:hover{
+    opacity: 0.8;
+  }
 `
+const StyledImg = styled.img`
+  width: 230px; /* Defina o tamanho desejado */
+  height: 230px; /* Defina o tamanho desejado *//* Ajuste o espaçamento inferior conforme necessário */
+  margin-bottom: -40px;
+  margin-top: -30px;
+  
+`
+const StyledLink = styled(Link)`
+  color: #818181; /* Defina a cor desejada */
+  text-decoration: none; /* Remover sublinhado */
+  font-size: 18px;
+  :hover{
+    opacity: 0.7;
+  }
+`;

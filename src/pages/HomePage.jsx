@@ -23,7 +23,7 @@ export default function HomePage() {
   function deslogar() {
     localStorage.removeItem('nome')
     localStorage.removeItem('token')
-    navigate('/')
+    navigate('/login')
   }
 
 
@@ -36,7 +36,7 @@ export default function HomePage() {
   useEffect(() => {
 
     if(!token){
-      navigate('/')
+      navigate('/login')
       alert("Faça o login!")
       return
     }

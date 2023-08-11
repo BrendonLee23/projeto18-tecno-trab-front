@@ -18,11 +18,11 @@ export default function App() {
       <BrowserRouter>
         <UserContext.Provider  value={{user, setUser}} >
           <Routes>
-            <Route path="/" element={<SignInPage />} />
-            <Route path="/cadastro" element={<SignUpPage />} />
+            <Route path="/login'" element={<SignInPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
             <Route path="/home" element={<HomePage />} />
-            <Route path="/nova-transacao/entrada" element={<InsertTransactionsPage />} />
-            <Route path="/nova-transacao/saida" element={<OutTransactionsPage />} />
+{/*             <Route path="/nova-transacao/entrada" element={<InsertTransactionsPage />} />
+            <Route path="/nova-transacao/saida" element={<OutTransactionsPage />} /> */}
           </Routes>
         </UserContext.Provider>
       </BrowserRouter>
@@ -43,6 +43,6 @@ const BackgroundImage = styled.div`
   width: 100%;
   height: 100%;
   background-image: url("https://papers.co/wallpaper/papers.co-se16-soft-programming-gradation-blur-41-iphone-wallpaper.jpg");
-/*   filter: blur(7px); */ /* Ajuste o valor do desfoque conforme necessário */
+/*   filter: blur(10px); */ /* Ajuste o valor do desfoque conforme necessário */
   z-index: -1; /* Coloca o elemento de fundo atrás do conteúdo */
 `

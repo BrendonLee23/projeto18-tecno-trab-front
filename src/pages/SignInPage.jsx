@@ -1,4 +1,4 @@
-import MyWalletLogo from "../components/MyWalletLogo"
+import MyWalletLogo from "../components/Logo"
 import { useContext, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -21,7 +21,7 @@ export default function SignInPage() {
     e.preventDefault();
 
     setLoading(true);
-    const promise = axios.post(`${import.meta.env.VITE_API_URL}/`, {
+    const promise = axios.post(`${import.meta.env.VITE_API_URL}/login`, {
       email: email,
       senha: senha
     });
@@ -56,9 +56,9 @@ export default function SignInPage() {
           }
         </button>
       </form>
-      <Link to='/cadastro' >
+      <StyledLink to='/signup' >
         Primeira vez? Cadastre-se!
-      </Link>
+      </StyledLink>
     </SingInContainer>
   )
 }
@@ -69,9 +69,27 @@ const SingInContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  input:hover {
+      opacity: 0.7;
+  }
+  button:hover{
+    opacity: 0.8;
+  }
 `
 const StyledImg = styled.img`
   width: 350px; /* Defina o tamanho desejado */
   height: 350px; /* Defina o tamanho desejado *//* Ajuste o espaçamento inferior conforme necessário */
   margin-bottom: -50px;
+  position: relative;
+  animation-name: example;
+  animation-duration: 4s;
+  animation-direction: reverse;
 `
+const StyledLink = styled(Link)`
+  color: #818181; /* Defina a cor desejada */
+  text-decoration: none; /* Remover sublinhado */
+  font-size: 18px;
+  :hover{
+    opacity: 0.7;
+  }
+`;
