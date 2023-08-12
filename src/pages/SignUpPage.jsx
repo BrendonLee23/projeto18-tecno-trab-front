@@ -88,7 +88,7 @@ export default function SignUpPage() {
         </button>
       </form>
 
-      <StyledLink to='/signup'>
+      <StyledLink to='/login'>
         Já tem uma conta? Entre agora!
       </StyledLink>
     </SingUpContainer>
@@ -101,6 +101,8 @@ const SingUpContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 100px 0;
+  margin: 0 auto;
   input{
     height: 10px;
   }
@@ -113,11 +115,13 @@ const SingUpContainer = styled.section`
   }
 `
 const StyledImg = styled.img`
-  width: 230px; /* Defina o tamanho desejado */
-  height: 230px; /* Defina o tamanho desejado *//* Ajuste o espaçamento inferior conforme necessário */
-  margin-bottom: -40px;
-  margin-top: -30px;
-  
+  width: 300px; /* Defina o tamanho desejado */
+  height: 220px; /* Defina o tamanho desejado *//* Ajuste o espaçamento inferior conforme necessário */
+  margin-top: -50px;
+  position: relative;
+  animation-name: example;
+  animation-duration: 4s;
+  animation-direction: reverse;
 `
 const StyledLink = styled(Link)`
   color: #818181; /* Defina a cor desejada */

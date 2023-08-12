@@ -1,12 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import styled from "styled-components"
 import HomePage from "./pages/HomePage"
 import SignInPage from "./pages/SignInPage"
 import SignUpPage from "./pages/SignUpPage"
 import { useState } from "react"
-import { UserContext } from "./contexts/UserContext"
-import InsertTransactionsPage from "./pages/InsertTransactionPage"
-import OutTransactionsPage from "./pages/OutTransactionPage"
+import { UserContext } from "./contexts/UserContext";
 
 export default function App() {
 
@@ -14,11 +12,12 @@ export default function App() {
 
   return (
     <PagesContainer>
-      <BackgroundImage />
+{/*       <BackgroundImage /> */}
       <BrowserRouter>
         <UserContext.Provider  value={{user, setUser}} >
           <Routes>
-            <Route path="/login'" element={<SignInPage />} />
+            <Route path="/" element={<Navigate to="/login"/>} />
+            <Route path="/login" element={<SignInPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/home" element={<HomePage />} />
 {/*             <Route path="/nova-transacao/entrada" element={<InsertTransactionsPage />} />
@@ -31,18 +30,17 @@ export default function App() {
 }
 
 const PagesContainer = styled.main`
-  position: relative;
+  position: absolute;
   width: calc(100vw - 50px);
-  max-height: 100vh;
-  padding: 25px;
+  display: flex;
 `
-const BackgroundImage = styled.div`
+/* const BackgroundImage = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 80vh;
   background-image: url("https://papers.co/wallpaper/papers.co-se16-soft-programming-gradation-blur-41-iphone-wallpaper.jpg");
-/*   filter: blur(10px); */ /* Ajuste o valor do desfoque conforme necessário */
-  z-index: -1; /* Coloca o elemento de fundo atrás do conteúdo */
-`
+
+  z-index: -1;
+` */

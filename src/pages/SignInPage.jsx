@@ -64,11 +64,16 @@ export default function SignInPage() {
 }
 
 const SingInContainer = styled.section`
-  height: 100vh;
+  height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 0 auto;
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-top: 20px;
+
   input:hover {
       opacity: 0.7;
   }
@@ -77,9 +82,9 @@ const SingInContainer = styled.section`
   }
 `
 const StyledImg = styled.img`
-  width: 350px; /* Defina o tamanho desejado */
-  height: 350px; /* Defina o tamanho desejado *//* Ajuste o espaçamento inferior conforme necessário */
-  margin-bottom: -50px;
+  width: 300px; /* Defina o tamanho desejado */
+  height: 220px; /* Defina o tamanho desejado *//* Ajuste o espaçamento inferior conforme necessário */
+  margin-top: -50px;
   position: relative;
   animation-name: example;
   animation-duration: 4s;
