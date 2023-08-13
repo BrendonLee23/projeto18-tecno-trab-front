@@ -2,12 +2,11 @@ import styled from "styled-components"
 
 
 
-export default function TransactionItem({transacao}) {
+export default function ServiceItem({transacao}) {
 
-/*     const {valor, descricao, tipo} = transacao */
 
     return (
-        <Transaction>
+        <>
             <div>
                 <span>{transacao.registeredAt}</span>
                 <strong data-test="registry-name">{transacao.description}</strong>
@@ -16,7 +15,7 @@ export default function TransactionItem({transacao}) {
             <Value data-test="registry-amount" color={"negativo"}>{transacao.value}</Value>
             }
             
-        </Transaction>
+        </>
     )
 }
 

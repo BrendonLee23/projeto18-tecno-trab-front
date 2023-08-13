@@ -4,6 +4,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { UserContext } from "../contexts/UserContext";
 import logo from "../Assets/logo.png";
+import {ThreeDots} from 'react-loader-spinner'
 /* import LoadingSpin from 'react-loader-spinner'; */
 
 export default function SignInPage() {
@@ -11,7 +12,7 @@ export default function SignInPage() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(false);
-  const { user, setUser } = useContext(UserContext)
+  const { setUser } = useContext(UserContext)
 
   const navigate = useNavigate();
 
@@ -22,18 +23,19 @@ export default function SignInPage() {
     setLoading(true);
     const promise = axios.post(`${import.meta.env.VITE_API_URL}/login`, {
       email: email,
-      senha: senha
+      password: senha
     });
-    console.log("API URL:", import.meta.env.VITE_API_URL);
 
     promise.then(response => {
-      setLoading(false);
-      const { token, usuario } = response.data
-      console.log(response.data);
-      setUser({ token, usuario })
-      localStorage.setItem('token', response.data.token)
-      localStorage.setItem('nome', response.data.usuario)
-      navigate('/home');
+      setTimeout(() => {
+        setLoading(false);
+        const { token, userName } = response.data;
+        console.log(response.data);
+        setUser({ token, userName });
+        localStorage.setItem('token', token);
+        localStorage.setItem('userName', userName);
+        navigate('/home');
+      }, 4000);
     })
 
     promise.catch(err => {
@@ -50,7 +52,18 @@ export default function SignInPage() {
         <input data-test="email" type={'text'} placeholder={'E-mail'} value={email} onChange={(e) => setEmail(e.target.value)} />
         <input data-test="password" type={'password'} placeholder={'Senha'} value={senha} onChange={(e) => setSenha(e.target.value)} />
         <button data-test="sign-in-submit" onClick={loginUser}>
-          {loading ? (<div>Caregando...</div>) : (
+          {loading ? (<ThreeDots
+            height="30"
+            width="50"
+            color="#d7d7d7"
+            position="center"
+            secondaryColor='#222222'
+            /* radius='4.5' */
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />) : (
             'Entrar'
           )
           }
@@ -73,7 +86,11 @@ const SingInContainer = styled.section`
   padding-left: 35px;
   padding-right: 35px;
   padding-top: 20px;
-
+  button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   input:hover {
       opacity: 0.7;
   }
@@ -98,3 +115,4 @@ const StyledLink = styled(Link)`
     opacity: 0.7;
   }
 `;
+

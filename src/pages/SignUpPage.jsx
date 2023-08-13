@@ -3,11 +3,9 @@ import styled from "styled-components";
 import logo from "../Assets/logo.png";
 import { useState } from "react";
 import axios from "axios";
-import {MutatingDots} from 'react-loader-spinner'
+import {MutatingDots} from 'react-loader-spinner';
 
 export default function SignUpPage() {
-
-
 
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
@@ -31,6 +29,7 @@ export default function SignUpPage() {
       alert("Digite a mesma senha")
       return
     }
+    console.log(import.meta.env.VITE_API_URL);
 
     setLoading(true);
     const promise = axios.post(`${import.meta.env.VITE_API_URL}/signup`, {

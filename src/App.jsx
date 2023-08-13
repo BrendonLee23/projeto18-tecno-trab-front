@@ -31,7 +31,7 @@ export default function App() {
 
 const PagesContainer = styled.main`
   position: absolute;
-  width: calc(100vw - 50px);
+  width: calc(90vw - 50px);
   display: flex;
 `
 /* const BackgroundImage = styled.div`
