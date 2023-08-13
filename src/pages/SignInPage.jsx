@@ -1,4 +1,3 @@
-import MyWalletLogo from "../components/Logo"
 import { useContext, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -25,6 +24,7 @@ export default function SignInPage() {
       email: email,
       senha: senha
     });
+    console.log("API URL:", import.meta.env.VITE_API_URL);
 
     promise.then(response => {
       setLoading(false);
