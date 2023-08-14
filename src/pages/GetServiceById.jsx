@@ -14,9 +14,7 @@ export default function GetServiceById() {
     const token = localStorage.getItem('token')
     const [servicesById, setServicesById] = useState([])
     const { user } = useContext(UserContext)
-    const [novoNome, setNovoNome] = useState()
-    const [novaImagem, setNovaImagem] = useState()
-    const [novaDescricao, setNovaDescricao] = useState()
+
 
     function deslogar() {
         localStorage.removeItem('userName')
@@ -24,9 +22,11 @@ export default function GetServiceById() {
         navigate('/login')
     }
 
-    function finalizeEdit() {
-        console.log('teste');
+    function backToHome(){
+        navigate('/home')
     }
+
+
     useEffect(() => {
 
         if (!token) {
@@ -35,31 +35,20 @@ export default function GetServiceById() {
             return
         }
 
-        /*         const config = {
-                    headers: {
-                        "authorization": `Bearer ${token}`,
-                    }
-                } */
-
-        /*         const body = {
-                    name: novoNome,
-                    image: novaImagem,
-                    description: novaDescricao
-                    } */
-
         axios.get(`${import.meta.env.VITE_API_URL}/home/${user.userId}`)
             .then(res => {
                 console.log(res.data, "vasco");
                 setServicesById(res.data)
+                localStorage.getItem('token, data.token')
             })
             .catch(err => console.log(err.message))
     }, [token]);
 
     return (
-        <EditContainer>
+        <MyServicesContainer>
             <Header>
                 <h1 data-test="user-name">Olá,  {usuarioLogado}</h1>
-                <img src={IconLogo} alt="icon-logo" />
+                <img onClick={backToHome} src={IconLogo} alt="icon-logo" />
                 <div>
                     <BiExit data-test="logout" onClick={deslogar} />
                 </div>
@@ -69,37 +58,35 @@ export default function GetServiceById() {
                     {servicesById?.map((service, i) => (<ServicePage key={i} nome={service.name} imagem={service.image} descricao={service.description} numero={service.phoneNumber} />))}
                 </>
             }
-            <form onSubmit={finalizeEdit}>
-                <input type={'text'} placeholder={'Nome'} value={novoNome} onChange={(e) => setNovoNome(e.target.value)} />
-                <input type={'text'} placeholder={'Imagem'} value={novaImagem} onChange={(e) => setNovaImagem(e.target.value)} />
-                <input type={'text'} placeholder={'Descrição'} value={novaDescricao} onChange={(e) => setNovaDescricao(e.target.value)} />
-                <button >Salvar Edição</button>
-            </form>
-        </EditContainer>
+        </MyServicesContainer>
     )
 }
 
-const EditContainer = styled.div`
-    background-color: green;
+const MyServicesContainer = styled.div`
     width: 100%;
-    height: auto;
+    height: calc(100vh - 50px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 `
-
 const Header = styled.header`
-    width: 110%;
-    height: 30px;
+    width: 100%;
+    height: 60px;
     background-color: #969696;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 15px;
+    justify-content: space-evenly;
+    padding:15px;
     margin-bottom: 15px;
     font-size: 26px;
     color: white;
+    gap:400px;
     img{
     width: 48px;
     height: 48px;
-    margin-right: 80px;
+    cursor: pointer;
+    padding-right: 80px;
     }
     div{
     cursor: pointer;

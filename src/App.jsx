@@ -6,6 +6,7 @@ import SignUpPage from "./pages/SignUpPage"
 import { useState } from "react"
 import { UserContext } from "./contexts/UserContext";
 import GetServiceById from "./pages/GetServiceById";
+import InsertService from "./pages/InsertService"
 
 export default function App() {
 
@@ -22,6 +23,7 @@ export default function App() {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/home/:id" element={<GetServiceById />} />
+            <Route path="/service/create" element={<InsertService />} />
           </Routes>
         </UserContext.Provider>
       </BrowserRouter>

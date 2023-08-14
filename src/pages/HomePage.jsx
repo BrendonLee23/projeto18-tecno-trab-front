@@ -13,12 +13,15 @@ export default function HomePage() {
   const usuarioLogado = localStorage.getItem('userName')
   const token = localStorage.getItem('token')
   const [services, setServices] = useState([])
-  console.log(services)
 
   function deslogar() {
     localStorage.removeItem('userName')
     localStorage.removeItem('token')
     navigate('/login')
+  }
+
+  function backToHome(){
+    navigate('/home')
   }
 
   useEffect(() => {
@@ -41,6 +44,7 @@ export default function HomePage() {
       .then(res => {
         const result = [...services, res.data]
         setServices(result);
+        localStorage.getItem('token, data.token')
       })
       .catch(err => console.log(err.message))
   }, [token])
@@ -50,7 +54,7 @@ export default function HomePage() {
     <HomeContainer>
       <Header>
         <h1 data-test="user-name">Olá,  {usuarioLogado}</h1>
-        <img src={IconLogo} alt="icon-logo" />
+        <img onClick={backToHome} src={IconLogo} alt="icon-logo" />
         <div>
           <BiExit data-test="logout" onClick={deslogar} />
         </div>
@@ -60,7 +64,7 @@ export default function HomePage() {
           <AiOutlineFolder  size={30} />
           <p>Meus Serviços</p>
         </button>
-        <button onClick={() => navigate('/nova-transacao/entrada')}>
+        <button onClick={() => navigate('/service/create')}>
           <AiOutlineForm size={30} />
           <p>Cadastar Serviços</p>
         </button>
@@ -82,34 +86,37 @@ export default function HomePage() {
 }
 
 const HomeContainer = styled.div`
-  height: 300px;
+  width: 100%;
+  height: calc(100vh - 50px);
   display: flex;
-  align-items: center;
   flex-direction: column;
-  min-height: 100vh;
+  align-items: center;
+  justify-content: flex-start;
 `
 const Header = styled.header`
-  width: 110%;
-  height: 30px;
-  background-color: #969696;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px;
-  margin-bottom: 15px;
-  font-size: 26px;
-  color: white;
-  img{
+    width: 100%;
+    height: 90px;
+    background-color: #969696;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding:15px;
+    margin-bottom: 15px;
+    font-size: 26px;
+    color: white;
+    gap:400px;
+    img{
     width: 48px;
     height: 48px;
-    margin-right: 80px;
-  }
-  div{
     cursor: pointer;
-  }
+    padding-right: 80px;
+    }
+    div{
+    cursor: pointer;
+    }
 `
 const ServicesContainer = styled.div`
-width: 100%;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   background-color: red;
@@ -135,6 +142,7 @@ const ButtonsContainer = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: center;
     p {
       font-size: 18px;
     }

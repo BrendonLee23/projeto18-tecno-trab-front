@@ -58,7 +58,6 @@ export default function SignInPage() {
             color="#d7d7d7"
             position="center"
             secondaryColor='#222222'
-            /* radius='4.5' */
             ariaLabel="three-dots-loading"
             wrapperStyle={{}}
             wrapperClass=""
