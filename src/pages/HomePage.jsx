@@ -15,15 +15,11 @@ export default function HomePage() {
   const [services, setServices] = useState([])
   console.log(services)
 
-
-
   function deslogar() {
     localStorage.removeItem('userName')
     localStorage.removeItem('token')
     navigate('/login')
   }
-
-
 
   useEffect(() => {
 
@@ -60,15 +56,15 @@ export default function HomePage() {
         </div>
       </Header>
       <ButtonsContainer>
-        <button data-test="new-income" onClick={() => navigate('/nova-transacao/entrada')}>
+        <button onClick={() => navigate('/home/:id')}>
+          <AiOutlineFolder  size={30} />
+          <p>Meus Serviços</p>
+        </button>
+        <button onClick={() => navigate('/nova-transacao/entrada')}>
           <AiOutlineForm size={30} />
           <p>Cadastar Serviços</p>
         </button>
-        <button data-test="new-income" onClick={() => navigate('/nova-transacao/entrada')}>
-          <AiOutlineFolder size={30} />
-          <p>Meus Serviços</p>
-        </button>
-        <button data-test="new-income" onClick={() => navigate('/nova-transacao/entrada')}>
+        <button onClick={() => navigate('/nova-transacao/entrada')}>
           <AiOutlineMenuFold size={30} />
           <p>Todos os Serviços</p>
         </button>

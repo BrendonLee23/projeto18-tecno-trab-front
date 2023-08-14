@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { AiOutlinePhone } from "react-icons/ai"
+
 export default function ServicePage(props) {
 
     const { nome, imagem, descricao, numero } = props;
