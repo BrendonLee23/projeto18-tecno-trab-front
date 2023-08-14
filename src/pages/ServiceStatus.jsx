@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AiOutlineCheckSquare } from "react-icons/ai"
+import { AiOutlineClose } from "react-icons/ai"
 
 export default function ServiceStatus(props) {
 
@@ -12,7 +12,8 @@ export default function ServiceStatus(props) {
                 <h2>{descricao}</h2>
             </DivInfos>
             <StatusButtom>
-            <AiOutlineCheckSquare color="green" size={60} />
+                <h1>Deletar Serviço</h1>
+                <AiOutlineClose color="red" size={90} />
             </StatusButtom>
         </ServiceUnity>
     )
@@ -42,6 +43,9 @@ const DivInfos = styled.div`
     }
 `
 const StatusButtom = styled.div`
+    h1{
+        font-size: 26px;
+    }
     margin-top: 15px;
     display: flex;
     flex-direction: center ;

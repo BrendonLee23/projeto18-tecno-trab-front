@@ -15,6 +15,11 @@ export default function ManageService() {
     const [servicesById, setServicesById] = useState([])
     const { user } = useContext(UserContext)
     const { auth } = useAuth()
+    console.log(servicesById)
+    function deletarServico(){
+
+    }
+
 
     function deslogar() {
         localStorage.removeItem('userName')
