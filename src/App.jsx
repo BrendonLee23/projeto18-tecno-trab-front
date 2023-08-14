@@ -8,6 +8,8 @@ import { UserContext } from "./contexts/UserContext";
 import GetServiceById from "./pages/GetServiceById";
 import InsertService from "./pages/InsertService";
 import { AuthProvider } from "./contexts/AuthContext"
+import ServiceStatus from "./pages/ServiceStatus"
+import ManageService from "./pages/ManageService"
 
 export default function App() {
 
@@ -26,7 +28,7 @@ export default function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/home/:id" element={<GetServiceById />} />
             <Route path="/service/create" element={<InsertService />} />
-            <Route path="/service/create" element={<InsertService />} />
+            <Route path="/service/edit/status/:id" element={<ManageService />} />
           </Routes>
         </UserContext.Provider>
         </AuthProvider>

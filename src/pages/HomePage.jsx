@@ -76,7 +76,7 @@ export default function HomePage() {
           <AiOutlineForm size={30} />
           <h2>{capitalizeFirstLetter('Cadastrar Serviços')}</h2>
         </button>
-        <button onClick={() => navigate('/nova-transacao/entrada')}>
+        <button onClick={() => navigate('/service/edit/status/:id')}>
           <AiOutlineTool size={30} />
           <h2>{capitalizeFirstLetter('Gerenciar Serviços')}</h2>
         </button>
