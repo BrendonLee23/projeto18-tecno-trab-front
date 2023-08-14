@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { BiExit } from "react-icons/bi"
-import { AiOutlineMenuFold, AiOutlineFolder, AiOutlineForm } from "react-icons/ai"
+import { AiOutlineTool, AiOutlineFolder, AiOutlineForm } from "react-icons/ai"
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -21,6 +21,7 @@ export default function HomePage() {
   }
 
   function backToHome(){
+    localStorage.getItem('token, data.token')
     navigate('/home')
   }
 
@@ -49,6 +50,9 @@ export default function HomePage() {
       .catch(err => console.log(err.message))
   }, [token])
 
+  function capitalizeFirstLetter(sentence) {
+    return sentence.charAt(0).toUpperCase() + sentence.slice(1).toLowerCase();
+  }
 
   return (
     <HomeContainer>
@@ -62,15 +66,15 @@ export default function HomePage() {
       <ButtonsContainer>
         <button onClick={() => navigate('/home/:id')}>
           <AiOutlineFolder  size={30} />
-          <p>Meus Serviços</p>
+          <h2>{capitalizeFirstLetter('MEUS SERVIÇOS')}</h2>
         </button>
         <button onClick={() => navigate('/service/create')}>
           <AiOutlineForm size={30} />
-          <p>Cadastar Serviços</p>
+          <h2>{capitalizeFirstLetter('Cadastrar Serviços')}</h2>
         </button>
         <button onClick={() => navigate('/nova-transacao/entrada')}>
-          <AiOutlineMenuFold size={30} />
-          <p>Todos os Serviços</p>
+          <AiOutlineTool size={30} />
+          <h2>{capitalizeFirstLetter('Gerenciar Serviços')}</h2>
         </button>
       </ButtonsContainer>
       <ServicesContainer>
@@ -92,19 +96,20 @@ const HomeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  margin-bottom: 100px;
 `
 const Header = styled.header`
     width: 100%;
-    height: 90px;
+    height: 133px;
     background-color: #969696;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content:  space-around;
     padding:15px;
     margin-bottom: 15px;
     font-size: 26px;
     color: white;
-    gap:400px;
+    cursor: default;
     img{
     width: 48px;
     height: 48px;
@@ -116,24 +121,23 @@ const Header = styled.header`
     }
 `
 const ServicesContainer = styled.div`
-  width: 100%;
   display: flex;
   flex-wrap: wrap;
-  background-color: red;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height:800px;
-  margin-top: 100px;
+  margin-top: 80px;
   padding-top: 25px;
-  padding-left: 40px;
-  padding-right: 10px;
+
 `
 
 const ButtonsContainer = styled.section`
   display: flex;
-  width: 350px;
+  width:400px;
   height: 50px;
-  gap: 20px;
-  margin-top: 15px;
+  gap: 30px;
+  margin-top: 60px;
   button {
     width: 50%;
     height: 115px;
@@ -143,8 +147,9 @@ const ButtonsContainer = styled.section`
     flex-direction: column;
     justify-content: space-between;
     position: center;
-    p {
-      font-size: 18px;
+    h2 {
+      font-size: 19px;
+      font-weight: bold;
     }
   }
 `

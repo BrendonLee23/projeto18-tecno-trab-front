@@ -19,16 +19,22 @@ export default function ServicePage(props) {
 }
 
 const ServiceUnity = styled.div`
-    background-color: blue;
-    width: 150px;
-    height: 300px;
-    margin:10px;
-    gap: 25px;
+    background-color: #9696a3;
+    width: 245px;
+    height: 350px;
+    margin:30px 13px 30px 13px;
+    gap: 20px;
+    border-radius: 10%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
     img{
-        width: 90px;
-        height: 90px;
+        border-radius: 10%;
+        width: 250px;
+        height: 190px;
     }
     h1{
+        position: start;
         font-size: 15px;
         font-weight: bold;
     }

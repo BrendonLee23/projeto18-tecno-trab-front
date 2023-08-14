@@ -24,6 +24,7 @@ export default function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/home/:id" element={<GetServiceById />} />
             <Route path="/service/create" element={<InsertService />} />
+            
           </Routes>
         </UserContext.Provider>
       </BrowserRouter>

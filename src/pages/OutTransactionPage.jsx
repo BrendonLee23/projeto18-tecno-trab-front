@@ -49,12 +49,7 @@ export default function OutTransactionsPage() {
 
     return (
         <Saida>
-            <h1>Nova Saída</h1>
-            <form onSubmit={adicionarSaida}>
-                <input required  data-test="registry-amount-input" type={'text'} placeholder={'Valor'} value={valor} onChange={(e) => setValor(e.target.value)} />
-                <input required  data-test="registry-name-input" type={'text'} placeholder={'Descrição'} value={descricao} onChange={(e) => setDescricao(e.target.value)} />
-                <button data-test="registry-save">Salvar saída</button>
-            </form>
+
         </Saida>
     )
 }
