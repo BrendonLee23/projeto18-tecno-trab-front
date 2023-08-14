@@ -7,31 +7,30 @@ import { UserContext } from "../contexts/UserContext";
 import IconLogo from "../Assets/icon-logo.png";
 import ServicePage from "./ServicePage";
 import { AiOutlineArrowLeft } from "react-icons/ai"
+import useAuth from "../contexts/UseAuth";
 
 export default function GetServiceById() {
 
     const navigate = useNavigate();
-    const usuarioLogado = localStorage.getItem('userName')
-    const token = localStorage.getItem('token')
     const [servicesById, setServicesById] = useState([])
     const { user } = useContext(UserContext)
+    const { auth } = useAuth()
 
 
     function deslogar() {
         localStorage.removeItem('userName')
-        localStorage.removeItem('token')
+        localStorage.removeItem('auth')
         navigate('/login')
     }
 
     function backToHome() {
-        localStorage.getItem('token, data.token')
         navigate('/home')
     }
 
 
     useEffect(() => {
 
-        if (!token) {
+        if (!auth) {
             navigate('/login')
             alert("Faça o login!")
             return
@@ -41,10 +40,9 @@ export default function GetServiceById() {
             .then(res => {
                 console.log(res.data, "vasco");
                 setServicesById(res.data)
-                localStorage.getItem('token, data.token')
             })
             .catch(err => console.log(err.message))
-    }, [token]);
+    }, [auth]);
 
     function capitalizeFirstLetter(sentence) {
         return sentence.charAt(0).toUpperCase() + sentence.slice(1).toLowerCase();
@@ -53,7 +51,7 @@ export default function GetServiceById() {
     return (
         <MyServicesContainer>
             <Header>
-                <h1 data-test="user-name">Olá,  {usuarioLogado}</h1>
+                <h1 data-test="user-name">Olá,  {user.userName}</h1>
                 <img onClick={backToHome} src={IconLogo} alt="icon-logo" />
                 <div>
                     <BiExit data-test="logout" onClick={deslogar} />

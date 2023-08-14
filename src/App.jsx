@@ -6,16 +6,18 @@ import SignUpPage from "./pages/SignUpPage"
 import { useState } from "react"
 import { UserContext } from "./contexts/UserContext";
 import GetServiceById from "./pages/GetServiceById";
-import InsertService from "./pages/InsertService"
+import InsertService from "./pages/InsertService";
+import { AuthProvider } from "./contexts/AuthContext"
 
 export default function App() {
 
   const [user, setUser] = useState({});
-  console.log(user.userId);
+  console.log(user);
 
   return (
     <PagesContainer>
       <BrowserRouter>
+      <AuthProvider>
         <UserContext.Provider  value={{ user, setUser }} >
           <Routes>
             <Route path="/" element={<Navigate to="/login"/>} />
@@ -24,9 +26,10 @@ export default function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/home/:id" element={<GetServiceById />} />
             <Route path="/service/create" element={<InsertService />} />
-            
+            <Route path="/service/create" element={<InsertService />} />
           </Routes>
         </UserContext.Provider>
+        </AuthProvider>
       </BrowserRouter>
     </PagesContainer>
   )

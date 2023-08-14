@@ -2,32 +2,35 @@ import styled from "styled-components"
 import { BiExit } from "react-icons/bi"
 import { AiOutlineTool, AiOutlineFolder, AiOutlineForm } from "react-icons/ai"
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import IconLogo from "../Assets/icon-logo.png";
 import ServicePage from "./ServicePage";
+import useAuth from "../contexts/UseAuth";
+import { UserContext } from "../contexts/UserContext";
 
 export default function HomePage() {
 
+  const { user } = useContext(UserContext)
   const navigate = useNavigate();
-  const usuarioLogado = localStorage.getItem('userName')
-  const token = localStorage.getItem('token')
-  const [services, setServices] = useState([])
+  const [services, setServices] = useState([]);
+  const { auth } = useAuth()
+
+
 
   function deslogar() {
     localStorage.removeItem('userName')
-    localStorage.removeItem('token')
+    localStorage.removeItem('auth')
     navigate('/login')
   }
 
-  function backToHome(){
-    localStorage.getItem('token, data.token')
+  function backToHome() {
     navigate('/home')
   }
 
   useEffect(() => {
 
-    if (!token) {
+    if (!auth) {
       navigate('/login')
       alert("Faça o login!")
       return
@@ -36,28 +39,29 @@ export default function HomePage() {
 
     const config = {
       headers: {
-        "authorization": `Bearer ${token}`,
+        "authorization": `Bearer ${auth}`
       }
     }
 
 
     axios.get(`${import.meta.env.VITE_API_URL}/home`, config)
       .then(res => {
-        const result = [...services, res.data]
-        setServices(result);
-        localStorage.getItem('token, data.token')
+        setServices(res.data);
+
       })
       .catch(err => console.log(err.message))
-  }, [token])
+  }, [auth])
 
   function capitalizeFirstLetter(sentence) {
     return sentence.charAt(0).toUpperCase() + sentence.slice(1).toLowerCase();
   }
 
+  const availableServices = services.filter(service => service.isAvailable === true);
+
   return (
     <HomeContainer>
       <Header>
-        <h1 data-test="user-name">Olá,  {usuarioLogado}</h1>
+        <h1 data-test="user-name">Olá,  {user.userName}</h1>
         <img onClick={backToHome} src={IconLogo} alt="icon-logo" />
         <div>
           <BiExit data-test="logout" onClick={deslogar} />
@@ -65,7 +69,7 @@ export default function HomePage() {
       </Header>
       <ButtonsContainer>
         <button onClick={() => navigate('/home/:id')}>
-          <AiOutlineFolder  size={30} />
+          <AiOutlineFolder size={30} />
           <h2>{capitalizeFirstLetter('MEUS SERVIÇOS')}</h2>
         </button>
         <button onClick={() => navigate('/service/create')}>
@@ -80,11 +84,10 @@ export default function HomePage() {
       <ServicesContainer>
         {!services ? (<ServNull>Não há registros de serviços casdastrados por você.</ServNull>) :
           <>
-            {services[0]?.map((service, i) => (<ServicePage key={i} nome={service.name} imagem={service.image} descricao={service.description} numero={service.phoneNumber} />))}
+            {availableServices?.map((service, i) => (<ServicePage key={i} nome={service.name} imagem={service.image} descricao={service.description} numero={service.phoneNumber} />))}
           </>
         }
       </ServicesContainer>
-
     </HomeContainer>
   )
 }

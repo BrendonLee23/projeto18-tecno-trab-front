@@ -6,38 +6,31 @@ import { useNavigate } from "react-router-dom";
 import { BiExit } from "react-icons/bi"
 import IconLogo from "../Assets/icon-logo.png";
 import { AiOutlineArrowLeft } from "react-icons/ai"
+import useAuth from "../contexts/UseAuth";
 
 export default function InsertService() {
 
   const navigate = useNavigate();
   const { user } = useContext(UserContext)
-  const usuarioLogado = localStorage.getItem('userName')
-  const token = localStorage.getItem('token')
   const [novoNome, setNovoNome] = useState('')
   const [novaImagem, setNovaImagem] = useState('')
   const [novaDescricao, setNovaDescricao] = useState('')
+  const {auth} = useAuth()
 
   function backToHome() {
-    localStorage.getItem('token, data.token')
     navigate('/home')
   }
 
   function deslogar() {
     localStorage.removeItem('userName')
-    localStorage.removeItem('token')
+    localStorage.removeItem('auth')
     navigate('/login')
   }
-
-  useEffect(() => {
-
-    localStorage.getItem('token, data.token')
-
-  }, [token])
 
   function finalizeEdit(e) {
     e.preventDefault();
 
-    if (!token) {
+    if (!auth) {
       navigate('/login');
       alert("Faça o login!");
       return;
@@ -45,14 +38,14 @@ export default function InsertService() {
 
     const config = {
       headers: {
-        "authorization": `Bearer ${token}`,
-      },
-    };
+        "authorization": `Bearer ${auth}`
+      }
+    }
 
     const body = {
       name: novoNome,
       image: novaImagem,
-      description: novaDescricao,
+      description: novaDescricao
     };
 
     const promise = axios.post(`${import.meta.env.VITE_API_URL}/service/create`, body, config);
@@ -73,7 +66,7 @@ export default function InsertService() {
   return (
     <ContainerEdit>
       <Header>
-        <h1 data-test="user-name">Olá,  {usuarioLogado}</h1>
+        <h1 data-test="user-name">Olá,  {user.userName}</h1>
         <img onClick={backToHome} src={IconLogo} alt="icon-logo" />
         <div>
           <BiExit data-test="logout" onClick={deslogar} />

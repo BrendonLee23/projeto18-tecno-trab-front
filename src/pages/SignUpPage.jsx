@@ -64,13 +64,13 @@ export default function SignUpPage() {
     <SingUpContainer>
       <form onSubmit={registerUser} >
         <StyledImg src={logo} alt="img-logo" />
-        <input type="text" placeholder="Nome" value={nome} onChange={(e) => setNome(e.target.value)} />
-        <input type="email" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
-        <input type="password" placeholder="Confirme a senha" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
-        <input type="date" placeholder="Data de Nascimento" value={born} onChange={(e) => setBorn(e.target.value)} />
-        <input type="text" placeholder="Endereço" value={address} onChange={(e) => setAddress(e.target.value)} />
-        <input type="tel" placeholder="Número de Telefone" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+        <input required type="text" placeholder="Nome" value={nome} onChange={(e) => setNome(e.target.value)} />
+        <input required type="email" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input required type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
+        <input required type="password" placeholder="Confirme a senha" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
+        <input required type="date" placeholder="Data de Nascimento" value={born} onChange={(e) => setBorn(e.target.value)} />
+        <input required type="text" placeholder="Endereço" value={address} onChange={(e) => setAddress(e.target.value)} />
+        <input required type="tel" placeholder="Número de Telefone" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
         <button data-test="sign-up-submit" >
           {loading ? (<MutatingDots
             height="100"

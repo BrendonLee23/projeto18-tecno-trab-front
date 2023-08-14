@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { UserContext } from "../contexts/UserContext";
 import logo from "../Assets/logo.png";
 import {ThreeDots} from 'react-loader-spinner'
+import useAuth from '../contexts/UseAuth';
 /* import LoadingSpin from 'react-loader-spinner'; */
 
 export default function SignInPage() {
@@ -13,6 +14,8 @@ export default function SignInPage() {
   const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(false);
   const { setUser } = useContext(UserContext)
+  const { login } = useAuth()
+
 
   const navigate = useNavigate();
 
@@ -31,9 +34,8 @@ export default function SignInPage() {
         setLoading(false);
         const { token, userName, userId } = response.data;
         console.log(response.data);
-        setUser({ token, userName, userId});
-        localStorage.setItem('token', token);
-        localStorage.setItem('userName', userName);
+        setUser({ userName, userId});
+        login(token)
         navigate('/home');
       }, 4000);
     })
