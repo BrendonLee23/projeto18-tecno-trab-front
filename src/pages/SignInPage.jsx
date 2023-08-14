@@ -41,7 +41,7 @@ export default function SignInPage() {
     promise.catch(err => {
       setLoading(false);
       console.log(err);
-      alert('Sentimos muito, mas correu um erro. Por favor, tente novamente!)');
+      alert(err.mesage,'Sentimos muito, mas correu um erro. Por favor, tente novamente!)');
     })
   }
 

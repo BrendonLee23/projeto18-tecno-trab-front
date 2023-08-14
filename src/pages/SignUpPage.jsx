@@ -3,7 +3,7 @@ import styled from "styled-components";
 import logo from "../Assets/logo.png";
 import { useState } from "react";
 import axios from "axios";
-import {MutatingDots} from 'react-loader-spinner';
+import { MutatingDots } from 'react-loader-spinner';
 
 export default function SignUpPage() {
 
@@ -43,10 +43,12 @@ export default function SignUpPage() {
     });
 
     promise.then(response => {
-      setLoading(false);
-      const { data } = response;
-      console.log(data);
-      navigate('/login');
+      setTimeout(() => {
+        setLoading(false);
+        const { data } = response;
+        console.log(data);
+        navigate('/login');
+      }, 4000);
     })
 
     promise.catch(err => {

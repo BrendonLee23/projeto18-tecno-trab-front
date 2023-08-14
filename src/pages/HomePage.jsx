@@ -4,18 +4,17 @@ import { AiOutlineMenuFold, AiOutlineFolder, AiOutlineForm } from "react-icons/a
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 import IconLogo from "../Assets/icon-logo.png";
-import ServiceItem from "./ServicePage";
+import ServicePage from "./ServicePage";
 
 export default function HomePage() {
 
   const navigate = useNavigate();
   const usuarioLogado = localStorage.getItem('userName')
   const token = localStorage.getItem('token')
-  const [service, setService] = useState([])
-  console.log(token)
-  console.log(usuarioLogado)
+  const [services, setServices] = useState([])
+  console.log(services)
+
 
 
   function deslogar() {
@@ -44,9 +43,8 @@ export default function HomePage() {
 
     axios.get(`${import.meta.env.VITE_API_URL}/home`, config)
       .then(res => {
-        console.log(res.data)
-        const result = [...service, res.data]
-        setService(result);
+        const result = [...services, res.data]
+        setServices(result);
       })
       .catch(err => console.log(err.message))
   }, [token])
@@ -61,9 +59,6 @@ export default function HomePage() {
           <BiExit data-test="logout" onClick={deslogar} />
         </div>
       </Header>
-      <ServicesContainer>
-        {service.map((serv, i) => <ServiceItem key={i} service={serv.service} /> )}
-      </ServicesContainer>
       <ButtonsContainer>
         <button data-test="new-income" onClick={() => navigate('/nova-transacao/entrada')}>
           <AiOutlineForm size={30} />
@@ -78,20 +73,27 @@ export default function HomePage() {
           <p>Todos os Serviços</p>
         </button>
       </ButtonsContainer>
+      <ServicesContainer>
+        {!services ? (<ServNull>Não há registros de serviços casdastrados por você.</ServNull>) :
+          <>
+            {services[0]?.map((service, i) => (<ServicePage key={i} nome={service.name} imagem={service.image} descricao={service.description} numero={service.phoneNumber} />))}
+          </>
+        }
+      </ServicesContainer>
+
     </HomeContainer>
   )
 }
 
 const HomeContainer = styled.div`
-  width: 300;
-  height: 1000px;
+  height: 300px;
   display: flex;
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
 `
 const Header = styled.header`
-  width: 98vw;
+  width: 110%;
   height: 30px;
   background-color: #969696;
   display: flex;
@@ -111,16 +113,24 @@ const Header = styled.header`
   }
 `
 const ServicesContainer = styled.div`
+width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: red;
+  width: 100%;
+  height:800px;
+  margin-top: 100px;
+  padding-top: 25px;
+  padding-left: 40px;
+  padding-right: 10px;
 `
 
 const ButtonsContainer = styled.section`
   display: flex;
   width: 350px;
   height: 50px;
-  margin: 25px;
   gap: 20px;
+  margin-top: 15px;
   button {
     width: 50%;
     height: 115px;

@@ -1,39 +1,40 @@
 import styled from "styled-components"
+import { AiOutlinePhone } from "react-icons/ai"
+export default function ServicePage(props) {
 
-
-
-export default function ServiceItem({transacao}) {
-
+    const { nome, imagem, descricao, numero } = props;
 
     return (
-        <>
-            <div>
-                <span>{transacao.registeredAt}</span>
-                <strong data-test="registry-name">{transacao.description}</strong>
-            </div>
-            {transacao.type === "entrada" ? <Value data-test="registry-amount" color={"positivo"}>{transacao.value}</Value> :
-            <Value data-test="registry-amount" color={"negativo"}>{transacao.value}</Value>
-            }
-            
-        </>
+        <ServiceUnity>
+            <img src={imagem} alt="img-service" />
+            <h1>{nome}</h1>
+            <h2>{descricao}</h2>
+            <ContactDiv>
+                <AiOutlinePhone size={30} />
+                <h2>{numero}</h2>
+            </ContactDiv>
+        </ServiceUnity>
     )
 }
 
-const Transaction = styled.li`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-    color: #000000;
-    margin-right: 10px;
-    div span {
-    color: #c6c6c6;
-    margin-right: 10px;
+const ServiceUnity = styled.div`
+    background-color: blue;
+    width: 150px;
+    height: 300px;
+    margin:10px;
+    gap: 25px;
+    img{
+        width: 90px;
+        height: 90px;
+    }
+    h1{
+        font-size: 15px;
+        font-weight: bold;
+    }
+    h2{
+        font-size:12px;
     }
 `
-
-const Value = styled.div`
-    font-size: 16px;
-    text-align: right;
-    color: ${(props) => (props.color === "positivo" ? "green" : "red")};
+const ContactDiv = styled.div`
+    display: flex;
 `

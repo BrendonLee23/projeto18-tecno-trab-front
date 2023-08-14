@@ -33,6 +33,7 @@ const PagesContainer = styled.main`
   position: absolute;
   width: calc(90vw - 50px);
   display: flex;
+  width: 100%;
 `
 /* const BackgroundImage = styled.div`
   position: absolute;
