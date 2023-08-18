@@ -1,22 +1,44 @@
 import styled from "styled-components";
-import { AiOutlineClose } from "react-icons/ai"
+import { AiOutlineClose } from "react-icons/ai";
+import useAuth from "../contexts/UseAuth";
 
 export default function ServiceStatus(props) {
 
-    const { nome, descricao } = props;
+    const { id, nome, descricao } = props;
+    const {auth} = useAuth()
 
-    return (
-        <ServiceUnity>
-            <DivInfos>
-                <h1>{nome}</h1>
-                <h2>{descricao}</h2>
-            </DivInfos>
-            <StatusButtom>
-                <h1>Deletar Serviço</h1>
-                <AiOutlineClose color="red" size={90} />
-            </StatusButtom>
-        </ServiceUnity>
-    )
+    function deletarServico() {
+        if (!auth) {
+            navigate('/login')
+            alert("Faça o login!")
+            return
+        }
+        const config = {
+            headers: {
+                "authorization": `Bearer ${auth}`
+            }
+        }
+
+        axios.post(`${import.meta.env.VITE_API_URL}/service/delete/${id}`, config)
+            .then(res => {
+                console.log("Serviço deletado!")
+                window.location.reload()
+            })
+            .catch(err => console.log(err.message))
+    }
+
+return (
+    <ServiceUnity>
+        <DivInfos>
+            <h1>{nome}</h1>
+            <h2>{descricao}</h2>
+        </DivInfos>
+        <AiOutlineClose color="red" size={90} />
+        <StatusButtom  onClick={deletarServico}>
+            <h1>Deletar Serviço</h1>
+        </StatusButtom>
+    </ServiceUnity>
+)
 }
 
 const ServiceUnity = styled.div`

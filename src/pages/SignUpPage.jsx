@@ -55,7 +55,7 @@ export default function SignUpPage() {
       setLoading(false);
       console.log(err);
       alert('Sentimos muito, mas correu um erro. Por favor, tente novamente!');
-      refreshOnError();
+      /* refreshOnError(); */
     })
 
   }

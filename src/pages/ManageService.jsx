@@ -16,10 +16,6 @@ export default function ManageService() {
     const { user } = useContext(UserContext)
     const { auth } = useAuth()
     console.log(servicesById)
-    function deletarServico(){
-
-    }
-
 
     function deslogar() {
         localStorage.removeItem('userName')
@@ -63,7 +59,7 @@ export default function ManageService() {
             </ButtonsContainer>
             {!servicesById ? <ServNull>Não há registros de serviços casdastrados. Cadastre um serviço abaixo.</ServNull> :
                 <>
-                    {servicesById?.map((service, i) => (<ServiceStatus key={i} nome={service.name} imagem={service.image} descricao={service.description} numero={service.phoneNumber} />))}
+                    {servicesById?.map((service, i) => (<ServiceStatus key={i} id={service.id} nome={service.name} imagem={service.image} descricao={service.description} numero={service.phoneNumber} />))}
                 </>
             }
         </ManageContatiner>

@@ -1,12 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-
-
-
 const GlobalStyle = createGlobalStyle`
-    body{
-        background-color:#DCDCDC;
-    }
     * {
         font-family: 'Raleway';
         font-style: normal;
